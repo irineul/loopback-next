@@ -5,40 +5,28 @@
 
 import {RestApplication, RestServerConfig} from '@loopback/rest';
 import {givenHttpServerConfig, supertest} from '@loopback/testlab';
-import * as os from 'os';
-import pEvent from 'p-event';
-import * as path from 'path';
+import {AddressInfo} from 'net';
 import {promisify} from 'util';
 import {MetricsComponent} from '../..';
 import {MetricsBindings} from '../../keys';
 import {MetricsOptions} from '../../types';
+import {PushGateway} from './mock-pushgateway';
 
-const runShell = require('@loopback/build/bin/utils').runShell;
+const gateway = new PushGateway();
 
-// Only run the test on Travis with Linux
-const verb =
-  process.env.TRAVIS && os.platform() === 'linux' ? describe : describe.skip;
-verb('Metrics (with push gateway)', function() {
-  // eslint-disable-next-line no-invalid-this
-  this.timeout(30000);
+describe('Metrics (with push gateway)', function() {
+  let gwUrl: string;
   before(async () => {
-    const child = runShell(
-      path.join(__dirname, '../../../bin/start-pushgateway.sh'),
-      [],
-    );
-    await pEvent(child, 'close');
+    const server = await gateway.start(0);
+    const port = (server.address() as AddressInfo).port;
+    gwUrl = `http://127.0.0.1:${port}`;
   });
 
   after(async () => {
-    const child = runShell(
-      path.join(__dirname, '../../../bin/stop-pushgateway.sh'),
-      [],
-    );
-    await pEvent(child, 'close');
+    return gateway.stop();
   });
 
   let app: RestApplication;
-  const gwUrl = 'http://127.0.0.1:9091';
 
   afterEach(async () => {
     if (app) await app.stop();
@@ -54,7 +42,7 @@ verb('Metrics (with push gateway)', function() {
 
   it('pushes metrics to gateway', async () => {
     // Wait for 100 ms
-    await promisify(setTimeout)(100);
+    await promisify(setTimeout)(50);
     const request = supertest(gwUrl);
     // Now we expect to get LoopBack metrics from the push gateway
     await request.get('/metrics').expect(200, /job="loopback"/);
