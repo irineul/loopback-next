@@ -15,8 +15,10 @@ import {
 import {Counter, Gauge, Histogram, Summary} from 'prom-client';
 
 /**
- * This interceptor captures metrics for method invocations. Please note that
- * metrics can be collected by other places, such as sequence of actions.
+ * This interceptor captures metrics for method invocations,
+ * excluding sequence actions and middleware executed before
+ * a method is invoked. Please collect metrics at other places
+ * if you want to cover more than just method invocations.
  */
 @bind(asGlobalInterceptor('metrics'), {scope: BindingScope.SINGLETON})
 export class MetricsInterceptor implements Provider<Interceptor> {
