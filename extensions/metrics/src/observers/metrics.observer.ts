@@ -17,8 +17,7 @@ export class MetricsObserver implements LifeCycleObserver {
   ) {}
 
   start() {
-    const defaultMetricsConfig =
-      this.options.defaultMetrics && this.options.defaultMetrics.options;
+    const defaultMetricsConfig = this.options.defaultMetrics;
     this.interval = collectDefaultMetrics(defaultMetricsConfig);
   }
 

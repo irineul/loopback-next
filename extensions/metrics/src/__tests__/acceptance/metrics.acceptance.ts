@@ -45,10 +45,8 @@ describe('Metrics (acceptance)', () => {
     it('honors prefix', async () => {
       await givenAppWithCustomConfig({
         defaultMetrics: {
-          options: {
-            // `-` is not allowed
-            prefix: 'myapp_',
-          },
+          // `-` is not allowed
+          prefix: 'myapp_',
         },
       });
       await request

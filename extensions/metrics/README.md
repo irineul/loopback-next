@@ -42,9 +42,7 @@ this.configure(MetricsBindings.COMPONENT).to({
     basePath: '/metrics',
   },
   defaultMetrics: {
-    options: {
-      timeout: 5000,
-    },
+    timeout: 5000,
   },
 });
 ```

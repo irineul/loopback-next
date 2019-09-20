@@ -13,14 +13,12 @@ export interface MetricsOptions {
 
   defaultMetrics?: {
     disabled?: boolean;
-    options?: DefaultMetricsCollectorConfiguration;
-  };
+  } & DefaultMetricsCollectorConfiguration;
 
   pushGateway?: {
     disabled?: boolean;
     url: string;
     interval?: number;
-    options?: object;
   };
 }
 
@@ -29,8 +27,6 @@ export const DEFAULT_METRICS_OPTIONS: MetricsOptions = {
     basePath: '/metrics',
   },
   defaultMetrics: {
-    options: {
-      timeout: 5000,
-    },
+    timeout: 5000,
   },
 };
