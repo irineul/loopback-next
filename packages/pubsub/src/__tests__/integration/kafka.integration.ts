@@ -3,7 +3,10 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
+import {KafkaPubSubConnector} from './kafka.connector';
 import {testPubSubConnector} from './pubsub.integration';
-import {RedisPubSubConnector} from './redis.connector';
 
-testPubSubConnector('Redis', new RedisPubSubConnector({}));
+testPubSubConnector(
+  'Kafka',
+  new KafkaPubSubConnector({kafkaHost: '127.0.0.1:9092'}),
+);
