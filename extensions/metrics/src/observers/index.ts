@@ -4,4 +4,4 @@
 // License text available at https://opensource.org/licenses/MIT
 
 export * from './metrics.observer';
-export * from './pushgateway.observer';
+export * from './metrics.push.observer';

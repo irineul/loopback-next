@@ -8,6 +8,9 @@ import {collectDefaultMetrics, register} from 'prom-client';
 import {MetricsBindings} from '../keys';
 import {DEFAULT_METRICS_OPTIONS, MetricsOptions} from '../types';
 
+/**
+ * An observer to set default Node.js metrics collection
+ */
 export class MetricsObserver implements LifeCycleObserver {
   private interval: NodeJS.Timeout | undefined;
 

@@ -10,9 +10,7 @@ import {
   expect,
   givenHttpServerConfig,
 } from '@loopback/testlab';
-import {MetricsComponent} from '../..';
-import {MetricsBindings} from '../../keys';
-import {MetricsOptions} from '../../types';
+import {MetricsBindings, MetricsComponent, MetricsOptions} from '../..';
 
 describe('Metrics (acceptance)', () => {
   let app: RestApplication;

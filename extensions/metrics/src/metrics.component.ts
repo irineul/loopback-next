@@ -15,7 +15,7 @@ import {Application, Component, CoreBindings} from '@loopback/core';
 import {metricsControllerFactory} from './controllers';
 import {MetricsInterceptor} from './interceptors';
 import {MetricsBindings} from './keys';
-import {MetricsObserver, PushGatewayObserver} from './observers';
+import {MetricsObserver, MetricsPushObserver} from './observers';
 import {DEFAULT_METRICS_OPTIONS, MetricsOptions} from './types';
 
 /**
@@ -39,7 +39,7 @@ export class MetricsComponent implements Component {
       !options.pushGateway ||
       (options.pushGateway && !options.pushGateway.disabled)
     ) {
-      this.application.lifeCycleObserver(PushGatewayObserver);
+      this.application.lifeCycleObserver(MetricsPushObserver);
     }
     this.application.add(createBindingFromClass(MetricsInterceptor));
     if (!options.endpoint || (options.endpoint && !options.endpoint.disabled)) {

@@ -8,7 +8,10 @@ import {Pushgateway} from 'prom-client';
 import {MetricsBindings} from '../keys';
 import {DEFAULT_METRICS_OPTIONS, MetricsOptions} from '../types';
 
-export class PushGatewayObserver implements LifeCycleObserver {
+/**
+ * An observer to set up periodical push of metrics to a push gateway
+ */
+export class MetricsPushObserver implements LifeCycleObserver {
   private interval: NodeJS.Timeout | undefined;
   private gateway: Pushgateway;
 

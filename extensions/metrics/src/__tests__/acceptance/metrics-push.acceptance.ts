@@ -7,9 +7,7 @@ import {RestApplication, RestServerConfig} from '@loopback/rest';
 import {givenHttpServerConfig, supertest} from '@loopback/testlab';
 import {AddressInfo} from 'net';
 import {promisify} from 'util';
-import {MetricsComponent} from '../..';
-import {MetricsBindings} from '../../keys';
-import {MetricsOptions} from '../../types';
+import {MetricsBindings, MetricsComponent, MetricsOptions} from '../..';
 import {PushGateway} from './mock-pushgateway';
 
 const gateway = new PushGateway();
